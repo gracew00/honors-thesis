@@ -21,4 +21,4 @@ def nuc_editing(file_path):
 
 
 file_path = "/home/ubuntu/honors_research/peak_align/TSS_all_adj+1Nuc.bed"
-
+nuc_editing(file_path)
