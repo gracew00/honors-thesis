@@ -15,14 +15,15 @@ def drop_first_column_in_folder(folder, pattern="*.cdt", sep="\t"):
 
     for path in files:
         print(f"Processing {path}")
-        df = pd.read_csv(path, sep=sep, header=None, dtype=str)
+        df = pd.read_csv(path, sep=sep, dtype=str)
 
-        if df.shape[1] < 2:
-            print(f"  Skipping (only {df.shape[1]} column(s))")
+        if "YORF" not in df.columns:
+            print("  No 'YORF' column, skipping")
             continue
-            
-        df = df.iloc[:, 1:]
-        df.to_csv(path, sep=sep, header=False, index=False)
+
+        df = df.drop(columns=["YORF"])
+        # keep header, no index
+        df.to_csv(path, sep=sep, index=False)
 
 drop_first_column_in_folder("/home/ubuntu/honors_research/peak_align/+2_dinucleotide/SS_SS")
 drop_first_column_in_folder("/home/ubuntu/honors_research/peak_align/+2_dinucleotide/SW_WS")
